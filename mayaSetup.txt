@@ -1,0 +1,51 @@
+ackKeySnapToTime	alt+s	ackSnapToTime;
+
+xray			alt+x	string $panel = `getPanel -wf`;
+				if ( `modelEditor -ex $panel` )
+				modelEditor -e -xray ( !`modelEditor -q -xray $panel` ) $panel;
+
+FlipKeys		alt+f	ackNegateKeys;
+
+SnapKeysValues		alt+a	ackSnapKeyValues;
+
+zeroTranslate		alt+w	import pymel.core as pm
+
+				def reset_selected(oColl):
+				   for oNode in oColl:
+				   try: oNode.tx.set(0)
+				   except: pass
+      			           try: oNode.ty.set(0)
+                                   except: pass
+                                   try: oNode.tz.set(0)
+                                   except: pass
+
+                                   runthescipt = pm.Callback(reset_selected, pm.selected() )
+                                   runthescipt()
+
+zeroRotate		alt+e	import pymel.core as pm
+
+				def reset_selected(oColl):
+    					for oNode in oColl:
+       					try: oNode.rx.set(0)
+        				except: pass
+        				try: oNode.ry.set(0)
+        				except: pass
+        				try: oNode.rz.set(0)
+        				except: pass
+
+					runthescipt = pm.Callback(reset_selected, pm.selected() )
+					runthescipt()
+
+spline_inv		alt+c	string $myPanel = `getPanel -wf`;
+
+				if(`getPanel -to $myPanel` == "modelPanel") {
+
+				if(`modelEditor -q -nurbsCurves $myPanel` == 0) {
+	
+				modelEditor -e -nurbsCurves 1 $myPanel;
+				}
+				else {
+	
+				modelEditor -e -nurbsCurves 0 $myPanel;
+					}
+				}
