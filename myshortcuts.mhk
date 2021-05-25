@@ -1,0 +1,143 @@
+//Maya Preference 2020 (Release 1)
+//
+//
+
+//
+// The runtime commands referenced by the hotkeys
+//
+runTimeCommand
+	-annotation "zero out translate"
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "python"
+	-command ("import pymel.core as pm\n\n\ndef reset_selected(oColl):\n    for oNode in oColl:\n        try: oNode.tx.set(0)\n        except: pass\n        try: oNode.ty.set(0)\n        except: pass\n        try: oNode.tz.set(0)\n        except: pass\n\n\nrunthescipt = pm.Callback(reset_selected, pm.selected() )\nrunthescipt()")
+	zeroTranslate;
+
+runTimeCommand
+	-annotation "keySnapToTime"
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "mel"
+	-command ("ackSnapToTime;\n\n")
+	ackKeySnapToTime;
+
+runTimeCommand
+	-annotation "spline _inv"
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "mel"
+	-command ("string $myPanel = `getPanel -wf`;\n\nif(`getPanel -to $myPanel` == \"modelPanel\") {\n\n\tif(`modelEditor -q -nurbsCurves $myPanel` == 0) {\n\t\n\t\tmodelEditor -e -nurbsCurves 1 $myPanel;\n\t}\n\telse {\n\t\n\t\tmodelEditor -e -nurbsCurves 0 $myPanel;\n\t}\n}")
+	spline_inv;
+
+runTimeCommand
+	-annotation "SnapKeysValues"
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "mel"
+	-command ("ackSnapKeyValues;")
+	SnapKeysValues;
+
+runTimeCommand
+	-annotation "xray"
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "mel"
+	-command ("string $panel = `getPanel -wf`;\nif ( `modelEditor -ex $panel` )\nmodelEditor -e -xray ( !`modelEditor -q -xray $panel` ) $panel;\n\n")
+	xray;
+
+runTimeCommand
+	-annotation "zero Rotate"
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "python"
+	-command ("import pymel.core as pm\n\n\ndef reset_selected(oColl):\n    for oNode in oColl:\n       \n\n\n        try: oNode.rx.set(0)\n        except: pass\n        try: oNode.ry.set(0)\n        except: pass\n        try: oNode.rz.set(0)\n        except: pass\n\n\n\n\nrunthescipt = pm.Callback(reset_selected, pm.selected() )\nrunthescipt()\n")
+	zeroRotate;
+
+runTimeCommand
+	-annotation "flip keys"
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "mel"
+	-command ("ackNegateKeys;")
+	FlipKeys;
+
+//
+// The name commands referenced by the hotkeys
+//
+nameCommand
+	-annotation "ackKeySnapToTimeNameCommand"
+	-sourceType "mel"
+	-command ("ackKeySnapToTime")
+	ackKeySnapToTimeNameCommand;
+
+nameCommand
+	-annotation "xrayNameCommand"
+	-sourceType "mel"
+	-command ("xray")
+	xrayNameCommand;
+
+nameCommand
+	-annotation "FlipKeysNameCommand"
+	-sourceType "mel"
+	-command ("FlipKeys")
+	FlipKeysNameCommand;
+
+nameCommand
+	-annotation "SnapKeysValuesNameCommand"
+	-sourceType "mel"
+	-command ("SnapKeysValues")
+	SnapKeysValuesNameCommand;
+
+nameCommand
+	-annotation "zeroTranslateNameCommand"
+	-sourceType "mel"
+	-command ("zeroTranslate")
+	zeroTranslateNameCommand;
+
+nameCommand
+	-annotation "zeroRotateNameCommand"
+	-sourceType "mel"
+	-command ("zeroRotate")
+	zeroRotateNameCommand;
+
+nameCommand
+	-annotation "spline_invNameCommand"
+	-sourceType "mel"
+	-command ("spline_inv")
+	spline_invNameCommand;
+
+//
+// The user hotkeys
+//
+//
+// The hotkey set
+//
+hotkeySet -source "Maya_Default" -current Maya_Default_Duplicate;
+//
+// The hotkey contexts and hotkeys
+//
+hotkey -keyShortcut "w" -alt -name ("zeroTranslateNameCommand");
+hotkey -keyShortcut "e" -alt -name ("zeroRotateNameCommand");
+hotkey -keyShortcut "s" -alt -name ("ackKeySnapToTimeNameCommand");
+hotkey -keyShortcut "f" -alt -name ("FlipKeysNameCommand");
+hotkey -keyShortcut "c" -alt -name ("spline_invNameCommand");
+hotkey -keyShortcut "c" -ctl -name ("");
+hotkey -keyShortcut "a" -alt -name ("SnapKeysValuesNameCommand");
+hotkey -keyShortcut "x" -alt -name ("xrayNameCommand");
+hotkeyCtx -type "Editor" -addClient "outlinerPanel";
+hotkeyCtx -type "Editor" -addClient "graphEditor";
+hotkeyCtx -type "Editor" -addClient "polyTexturePlacementPanel";
+hotkeyCtx -type "Editor" -addClient "shapePanel";
+hotkeyCtx -type "Editor" -addClient "posePanel";
+hotkeyCtx -type "Editor" -addClient "timeEditorPanel";
+hotkeyCtx -type "Editor" -addClient "profilerPanel";
+hotkeyCtx -type "Editor" -addClient "nodeEditorPanel";
+hotkeyCtx -type "Editor" -addClient "hyperGraphPanel";
+hotkeyCtx -type "Editor" -addClient "hyperShadePanel";
+hotkeyCtx -type "Tool" -addClient "sculptMeshCache";
+hotkeyCtx -type "Tool" -addClient "SymmetrizeUVBrush";
+hotkeyCtx -type "Tool" -addClient "Unfold3DBrush";
+hotkeyCtx -type "Tool" -addClient "texSculptCacheContext";
+hotkeyCtx -type "Tool" -addClient "polyCutUV";
+hotkeyCtx -type "Tool" -addClient "texCutContext";
+hotkeyCtx -type "Tool" -addClient "xgmIGBrush";
